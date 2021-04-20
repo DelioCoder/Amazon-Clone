@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+//import 'bootstrap/dist/css/bootstrap.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import HomeScreen from './pages/HomeScreen';
+import ProductScreen from './pages/ProductScreen';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="grid-container">
+        <header className="row">
+          <div>
+            <a className="brand" href="index.html">Amazona</a>
+          </div>
+          <div>
+            <a href="/cart">Cart</a>
+            <a href="/signin">Sign In</a>
+          </div>
+        </header>
+        <main>
+          <Route path="/" component={HomeScreen} exact />
+          <Route path="/product/:id" component={ProductScreen} exact />
+        </main>
+        <footer className="row center">
+          All right reserved
+        </footer>
+      </div>
+    </Router>
   );
 }
 
