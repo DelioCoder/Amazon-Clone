@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+
+//Redux
+import { listProducts } from '../redux/actions/productActions';
 
 /* Components */
 import Product from '../components/Product';
@@ -8,34 +11,15 @@ import MessageBox from '../components/MessageBox';
 
 export default function HomeScreen() {
 
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(false);
+  const productList = useSelector((state) => state.productList);
 
-  const [error, setError] = useState(false);
+  const { loading, error, products } = productList;
 
   useEffect(() => {
     
-    const fetchData = async() =>{
-
-      try {
-
-        setLoading(true);
-
-        const { data } = await axios.get('/api/product');
-
-        setLoading(false);
-
-        setProducts(data);
-
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }   
-
-    };
-
-    fetchData();
+    dispatch(listProducts());
 
   }, []);
   
